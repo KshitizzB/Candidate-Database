@@ -6,6 +6,9 @@ It is a database maintainence software of candidates/students
 Language Used:
 C, C++
 
+IDE Used:
+Code::Blocks
+
 Entities Included:
 1. Roll Number
 2. Name
