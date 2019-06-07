@@ -21,6 +21,8 @@ Features:
 4. Filter by Name
 5. Filter by Marks
 6. Self Sorting
+7. Deletion of records
+8. Editing of records
 
 Concepts Implemented:
 1. Structures
