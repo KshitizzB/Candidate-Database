@@ -3,6 +3,8 @@
 #include<algorithm>
 #include<string.h>
 
+using namespace std;
+
 int numberOfRecords;
 
 struct StdDetail{
@@ -10,6 +12,15 @@ struct StdDetail{
 	char name[30];
 	int marks;
 };
+
+void get_file_size(){
+	string filename = "std.dat";
+    FILE* file = fopen(filename.c_str(),"rb");
+    fseek(file,0,SEEK_END);
+    int size = ftell(file);
+    fclose(file);
+    numberOfRecords = size/sizeof(struct StdDetail);
+}
 
 int cmpfunc (const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
@@ -110,7 +121,6 @@ void delete_record(struct StdDetail data, int delete_roll){
 	remove("std.dat");
 	rename("temp.dat", "std.dat");
 	numberOfRecords--;
-	sort_file();
 }
 
 void edit_roll(struct StdDetail data, int edit_roll_number, int new_roll){
@@ -134,8 +144,9 @@ void edit_roll(struct StdDetail data, int edit_roll_number, int new_roll){
 		FILE* file2 = fopen("std.dat", "a+b");
 		fwrite(&replace_data, sizeof(struct StdDetail), 1, file2);
 		fclose(file2);
+		numberOfRecords++;
+		sort_file();
 	}
-	sort_file();
 }
 
 void edit_name(struct StdDetail data, int edit_roll_number, char* new_name){
@@ -159,8 +170,9 @@ void edit_name(struct StdDetail data, int edit_roll_number, char* new_name){
 		FILE* file2 = fopen("std.dat", "a+b");
 		fwrite(&replace_data, sizeof(struct StdDetail), 1, file2);
 		fclose(file2);
+		numberOfRecords++;
+		sort_file();
 	}
-	sort_file();
 }
 
 void edit_marks(struct StdDetail data, int edit_roll_number, int new_marks){
@@ -184,14 +196,15 @@ void edit_marks(struct StdDetail data, int edit_roll_number, int new_marks){
 		FILE* file2 = fopen("std.dat", "a+b");
 		fwrite(&replace_data, sizeof(struct StdDetail), 1, file2);
 		fclose(file2);
+		numberOfRecords++;
 	}
-	sort_file();
 }
 
 main(){
 	int done = 0, search_roll, search_marks, delete_roll, edit_roll_number, select_edit, new_roll, new_marks;
 	char search_name[30], new_name[30];
 	struct StdDetail data;
+	get_file_size();
 	while(done!=8){
 		printf("\n1. Add record\n");
 		printf("2. Search by roll\n");
