@@ -14,7 +14,7 @@ struct StdDetail{
 };
 
 void get_file_size(){
-	string filename = "std.dat";
+    string filename = "std.dat";
     FILE* file = fopen(filename.c_str(),"rb");
     fseek(file,0,SEEK_END);
     int size = ftell(file);
